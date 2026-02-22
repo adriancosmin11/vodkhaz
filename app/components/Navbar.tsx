@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useCart } from "../context/CartContext";
 
 export default function Navbar() {
+    const { setIsCartOpen, cartCount } = useCart();
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -90,8 +92,8 @@ export default function Navbar() {
                             </svg>
                         </button>
                         <button
-                            onClick={() => scrollTo("#produs")}
-                            className="w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-105"
+                            onClick={() => setIsCartOpen(true)}
+                            className="relative w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-105"
                             style={{
                                 background: "linear-gradient(135deg, #C9A84C, #A08030)",
                             }}
@@ -101,6 +103,11 @@ export default function Navbar() {
                                 <line x1="3" y1="6" x2="21" y2="6" />
                                 <path d="M16 10a4 4 0 01-8 0" />
                             </svg>
+                            {cartCount > 0 && (
+                                <span className="absolute -top-1 -right-1 bg-white text-black text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center border border-black/10">
+                                    {cartCount}
+                                </span>
+                            )}
                         </button>
                     </div>
                 </div>
@@ -148,8 +155,8 @@ export default function Navbar() {
                     {/* Right: Cart */}
                     <div className="flex items-center justify-end">
                         <button
-                            onClick={() => scrollTo("#produs")}
-                            className="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer"
+                            onClick={() => setIsCartOpen(true)}
+                            className="relative w-8 h-8 rounded-full flex items-center justify-center cursor-pointer"
                             style={{
                                 background: "linear-gradient(135deg, #C9A84C, #A08030)",
                             }}
@@ -159,6 +166,11 @@ export default function Navbar() {
                                 <line x1="3" y1="6" x2="21" y2="6" />
                                 <path d="M16 10a4 4 0 01-8 0" />
                             </svg>
+                            {cartCount > 0 && (
+                                <span className="absolute -top-1 -right-1 bg-white text-black text-[9px] font-bold w-3.5 h-3.5 rounded-full flex items-center justify-center border border-black/10">
+                                    {cartCount}
+                                </span>
+                            )}
                         </button>
                     </div>
                 </div>

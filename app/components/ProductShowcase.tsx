@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import { useCart } from "../context/CartContext";
 
 const specs = [
     { label: "Volum", value: "700ml" },
@@ -21,9 +22,17 @@ export default function ProductShowcase() {
     const ref = useRef<HTMLElement>(null);
     const isInView = useInView(ref, { once: true, margin: "-80px" });
     const [addedToCart, setAddedToCart] = useState(false);
+    const { addItem } = useCart();
 
     const handleAddToCart = () => {
         setAddedToCart(true);
+        addItem({
+            id: "vodkhaz-green",
+            name: "VODKHAZ Green",
+            price: 79,
+            image: "🐘",
+            quantity: 1,
+        });
         setTimeout(() => setAddedToCart(false), 2000);
     };
 
